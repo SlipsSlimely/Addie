@@ -35,7 +35,7 @@ module.exports = {
 
 
                 await interaction.reply({
-                    content: `You rolled ${diceCount} dice with ${sideCount} sides, the rolls added up to ${grandTotal}`
+                    content: `You rolled ${diceCount} dice with ${sideCount} sides, the rolls added up to ${grandTotal}. The individual dice rolls are: ${diceOutput.toString()}`
                 })
 
             }
