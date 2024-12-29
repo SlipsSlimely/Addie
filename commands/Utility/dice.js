@@ -18,10 +18,10 @@ module.exports = {
     async execute(interaction) {
 
 
-        const diceCount = options.getString('dice total');
-        const sideCount = options.getString('sides');
+        const diceCount = interaction.options.getString('dicetotal');
+        const sideCount = interaction.options.getString('sides');
         const diceOutput = [];
-        const grandTotal = 0;
+        grandTotal = 0;
         //killNumber = Math.floor(Math.random()*(sideCount - 1 + 1))+1;
 
         for (let i = 0; i < diceCount; i++) {
@@ -35,7 +35,7 @@ module.exports = {
 
 
                 await interaction.reply({
-                    content: `The result of rolling ${diceCount} with ${sideCount} set as the total number of sides comes up to ${grandTotal}`
+                    content: `You rolled ${diceCount} dice with ${sideCount} sides, the rolls added up to ${grandTotal}`
                 })
 
             }
