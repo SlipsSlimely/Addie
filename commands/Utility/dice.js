@@ -5,11 +5,11 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('dice')
         .setDescription("Rolls some dice for you!")
-        .addStringOption(option =>
-            option.setName('dice total')
+        .addStringOption((option) =>
+            option.setName('dicetotal')
             .setDescription('This is the total number of dice you wish to roll')
             .setRequired(true))
-        .addStringOption(option =>
+        .addStringOption((option) =>
             option.setName('sides')
             .setDescription('The number of sides you want your dice to have')
             .setRequired(true)),
