@@ -45,7 +45,9 @@ module.exports = {
         counterLooper = 0;
         outputCounter = 0;
         const diceOutput = [];
+        let diceReadout = [];
         grandTotal = 0;
+        groupNumber = 1;
 
         //Fill in the modifier array to be as long as the other arrays to prevent crashes or math issues
         if (modifierCountTrueArray.length == 0 || modifierCountTrueArray.length < diceCountArray.length)
@@ -63,11 +65,14 @@ module.exports = {
 
         //Roll all of the dice and add any modifiers
         for (let i = 0; i < diceCountArray.length; i++) {
+            diceReadout.push(" Group " + groupNumber + " ");
             for (let i = 0; i < diceCountArray[counterLooper]; i++) {
                 diceOutput[outputCounter] = Math.floor(Math.random()*(sideCountArray[counterLooper] - 1 + 1))+1 + modifierCountTrueArray[counterLooper];
+                diceReadout.push(diceOutput[outputCounter])
                 outputCounter = outputCounter + 1;
-              }
+              } 
               counterLooper = counterLooper + 1;
+              groupNumber = groupNumber + 1;
           }
         
 
@@ -84,7 +89,7 @@ module.exports = {
 
                 // Output everything to the user
                 await interaction.reply({
-                    content: `You rolled ${diceCountTrue} dice, the rolls added up to ${grandTotal}. The individual dice rolls are: ${diceOutput.toString()}`
+                    content: `You rolled ${diceCountTrue} dice, the rolls added up to ${grandTotal}. The individual dice rolls are: ${diceReadout.toString()}`
                 })
 
             }
