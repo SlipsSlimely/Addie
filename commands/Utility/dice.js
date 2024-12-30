@@ -15,39 +15,52 @@ module.exports = {
             .setRequired(true))
         .addStringOption((option) =>
             option.setName('modifiers')
-            .setDescription('The number of sides you want your dice to have')
+            .setDescription('Any modifiers you want for the dice')
             .setRequired(false)),
 
 
     async execute(interaction) {
 
 
-        const diceCount = interaction.options.getString('dicetotal');
-        const sideCount = interaction.options.getString('sides');
-        const modifierCount = interaction.options.getString('modifiers');
-        const diceCountArray = diceCount.split(" ");
+        const diceCount = interaction.options.getString('dicetotal'); //The input number of dice
+        const sideCount = interaction.options.getString('sides'); //The input sides of each group of dice
+        let modifierCount = interaction.options.getString('modifiers'); // Any input modifiers
+
+        if (modifierCount == null)
+        {
+            modifierCount = "0";
+        }
+
+        //Transferring the input information above into arrays
+        const diceCountArray = diceCount.split(" "); 
         const sideCountArray = sideCount.split(" ");
-        //const modifierCountArray = modifierCount.split(" ");
+        const modifierCountArray = modifierCount.split(" ");
+
+        let modifierCountTrueArray = modifierCountArray.map(Number);
         let diceCountTrueArray = diceCountArray.map(Number);
+
         let diceCountTrue = 0;
-/*         let diceOverseerArray = [
-            diceCountArray,
-            sideCountArray,
-            modifierCountArray
-        ] */
         counterLooper = 0;
         outputCounter = 0;
         const diceOutput = [];
         grandTotal = 0;
-        //killNumber = Math.floor(Math.random()*(sideCount - 1 + 1))+1;
 
-/*         for (let i = 0; i < diceCount; i++) {
-            diceOutput[i] = Math.floor(Math.random()*(sideCount - 1 + 1))+1;
-          } */
-        
+        if (modifierCountTrueArray.length == 0 || modifierCountTrueArray.length < diceCountArray.length)
+        {
+            for (let i = 0; i < diceCountArray.length + 1; i++) {
+                if (modifierCountTrueArray[i] == 0)
+                {
+                    modifierCountTrueArray[i] = modifierCountTrueArray[i];
+                }
+                else{
+                    modifierCountTrueArray.push(0);
+                }
+              }
+        }
+
         for (let i = 0; i < diceCountArray.length; i++) {
             for (let i = 0; i < diceCountArray[counterLooper]; i++) {
-                diceOutput[outputCounter] = Math.floor(Math.random()*(sideCountArray[counterLooper] - 1 + 1))+1;
+                diceOutput[outputCounter] = Math.floor(Math.random()*(sideCountArray[counterLooper] - 1 + 1))+1 + modifierCountTrueArray[counterLooper];
                 outputCounter = outputCounter + 1;
               }
               counterLooper = counterLooper + 1;
@@ -57,7 +70,7 @@ module.exports = {
             diceCountTrue = diceCountTrue + diceCountTrueArray[i];
           }
 
-          
+
         for (let i = 0; i < diceOutput.length; i++) {
             grandTotal = grandTotal + diceOutput[i];
           }
